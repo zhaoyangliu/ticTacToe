@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 5.5.1 (402628)"/><meta name="altitude" content="186"/><meta name="author" content="vivaliu"/><meta name="created" content="2014-05-02 23:07:24 +0000"/><meta name="latitude" content="42.05839253722242"/><meta name="longitude" content="-87.67455485401359"/><meta name="updated" content="2014-05-03 18:00:20 +0000"/><title>Untitled Note</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<p style="font-family: Times; background-color: rgb(255, 255, 204);"><font size="3">Due Thursday, May 8 at 11:59 PM via Blackboard. Please submit your code (in .py or .cpp format) and write-up separately. Late assignments penalized 10% per day. <br/>
+<br/></font></p>
+<h2 style="font-family: Times;"><font size="3">Relevant Reading</font></h2>
+<font size="3" style="font-family: Times;">Chapter 5, Sections 5.1 to 5.3.</font>
+<h2><font size="3" style="font-family: Times; font-size: medium; font-weight: normal;">Assignment</font></h2>
+<p><font size="3" style="font-family: Times;">You can work together in teams of up to four. Each team should have at least one "programmer" as defined in the Intro lecture notes. Programmers and non-programmers on each team will solve mostly similar tasks in this assignment.</font></p>
+<h3><font size="3" style="font-family: Times; font-size: medium; font-weight: normal;">Starter code</font></h3>
+<font size="3" style="font-family: Times;">We've provided starter code that plays a basic version of the game. The starter code, and the code you will turn in, matches one computer player against a human (who enters moves interactively).</font>
+<h4><font size="3" style="font-family: Times; font-weight: normal;">C++ Starter Code</font></h4>
+<font size="3" style="font-family: Times;">The <a href="http://www.cs.northwestern.edu/~ddowney/courses/348/TicTacToe.cpp">C++ starter code</a> includes the following key functions:</font>
+<ul>
+<li><font size="3" style="font-family: Times;">To create a Board object, use <br/>
+<code>Board * b = new Board();</code><br/>
+The board has integer entires, with -1 indicating the O player, +1 indicating the X player, and zero indicating blank.</font></li>
+<li><font size="3" style="font-family: Times;">to represent a board as a string for output, use:<br/>
+<code>string boardStr = b-&gt;toString()</code></font></li>
+<li><font size="3" style="font-family: Times;">to change a Board to play a number at a given row and column, use the following<br/>
+<code>b-&gt;play_square(row,col,value)</code><br/>
+where #row and col are <b>1</b> indexed(!).</font></li>
+<li><font size="3" style="font-family: Times;">to get a square value, use:<br/>
+<code>int sq = b-&gt;get_square(row,col)</code> where where #row and col are <b>1</b>indexed.</font></li>
+<li><font size="3" style="font-family: Times;">to see if there is a winner, use:<br/>
+<code>int winner = b-&gt;winner()</code></font></li>
+<li><font size="3" style="font-family: Times;">to see if the board is full (all squares played), use:<br/>
+<code>bool full = b-&gt;full_board()</code></font></li>
+<li><font size="3" style="font-family: Times;">Finally, you can fire up a simple run with a unintelligent computer player as:<br/>
+<code>play()</code><br/>
+Your task is to change the play() function, e.g. swap out the make_simple_cpu_move() function, to create a computer player that makes intelligent moves.\ You <em>also</em> need to change the starter code to allow the computer to play first (as the X player).</font></li>
+</ul>
+<h4><font size="3" style="font-family: Times; font-weight: normal;">Python Starter Code</font></h4>
+<font size="3" style="font-family: Times;">The <a href="http://www.cs.northwestern.edu/~ddowney/courses/348/tictactoe.py">Python starter code</a> includes the same functions as documented for the C++ code above, with a few minor differences (e.g., blanks are indicated with 'N' instead of 0, and the get square function is zero-indexed). Note, this code runs in Python 3.x; if you use 2.x, you may need to make small alterations to the code to get it to function.</font>
+<h3><font size="3" style="font-family: Times; font-size: medium; font-weight: normal;">What to turn in</font></h3>
+<ol>
+<li><font size="3" style="font-family: Times;">Implement a tic-tac-toe program that uses <span style="-evernote-highlight:true;background-color: rgb(255, 250, 165);">Minimax and Alpha-Beta Prunin</span>g. See the implementation guidelines below. Include the following:</font>
+<ol type="a">
+<li><font size="3" style="font-family: Times;">(1 point) Your code, including a readme that says <span style="-evernote-highlight:true;background-color: rgb(255, 250, 165);">which compiler you used and how to run your game.</span></font></li>
+<li><font size="3" style="font-family: Times;">(1 point) An output trace of your program in action, with the computer playing as th<span style="-evernote-highlight:true;background-color: rgb(255, 250, 165);">e O player (moving second)</span> in one game and the X player (moving first) in the other (each team member must do his or her own runs).</font></li>
+<li><font size="3" style="font-family: Times;">(1 point) Describe who within your group performed which piece of the design/programming effort.</font></li>
+</ol>
+</li>
+<li><font size="3" style="font-family: Times;">Answer the following questions regarding your program. These answers should be succinct (two or three sentences each), but specific enough that we could <em>almost</em> re-implement your solution based on the answers.</font>
+<ol type="a">
+<li><font size="3" style="font-family: Times;">(1 points) Which part of your code <span style="-evernote-highlight:true;background-color: rgb(255, 250, 165);">generates the next ply, and how does it work?</span></font></li>
+<li><font size="3" style="font-family: Times;">(1 points) What is your <span style="-evernote-highlight:true;background-color: rgb(255, 250, 165);">evaluation function,</span> and why is it good?</font></li>
+</ol>
+</li>
+<li><font size="3" style="font-family: Times;">(1 point) How will you have to alter your code <span style="-evernote-highlight:true;background-color: rgb(255, 250, 165);">in order to play Othello?</span> In about one paragraph, describe the changes you'll need to make and where these will occur in the code. Assume we will provide starter code that implements the basic rules of Othello, as we did for Tic Tac Toe.</font></li>
+</ol>
+</body></html>
