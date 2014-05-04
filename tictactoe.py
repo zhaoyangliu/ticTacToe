@@ -1,9 +1,11 @@
+# coding=utf-8
 import struct, string
 
 class TicTacToeBoard:
 
     def __init__(self):
         self.board = (['N']*3,['N']*3,['N']*3)
+        self.count = 0
                                       
     def PrintBoard(self):
         print(self.board[0][0] + "|" + self.board[1][0] + "|" + self.board[2][0])
@@ -13,6 +15,7 @@ class TicTacToeBoard:
         print(self.board[0][2] + "|" + self.board[1][2] + "|" + self.board[2][2])
         
     def play_square(self, col, row, val):
+        self.count += 1
         self.board[col][row] = val
 
     def get_square(self, col, row):
@@ -44,13 +47,103 @@ class TicTacToeBoard:
             return self.board[2][0]
         return 'N'
 
+
 def make_simple_cpu_move(board, cpuval):
     for i in range(3):
         for j in range(3):
-            if(board.get_square(i,j)=='N'):
-                board.play_square(i,j,cpuval)
+            if board.get_square(i, j) == 'N':
+                board.play_square(i, j, cpuval)
                 return True
     return False
+
+
+# Given a non-empty board, it fills one square in the board, according to minimax strategy.
+def minimax_dicision(board, cpuval):
+    position = ()
+    max = None
+    value = None
+
+    for i in range(3):
+        for j in range(3):
+            if (board.get_square(i, j) == 'N'):
+
+                board.play_square(i, j, 'X')         # If X is going to win, stop it to win.
+                if board.winner() == 'X':
+                    board.play_square(i, j, 'O')
+                    return
+
+                board.play_square(i, j, cpuval)
+                if board.full_board() or board.winner() != 'N':
+                    result = utility(board, cpuval)
+                    return result
+                else:
+                    value = min_value(board, 'X', value)
+                    if max == None:
+                        max = value
+                        position = (i, j)
+                    elif max < value:
+                        max = value
+                        position = (i, j)
+                board.play_square(i, j, 'N')
+
+    board.play_square(position[0], position[1], cpuval)
+
+def utility(board, val):
+    winner = board.winner();
+    return 1 if winner == 'O' else 0 if winner == 'N' else -1
+
+def min_value(board, val, a):
+    min = None
+    value = None
+
+    for i in range(3):
+        for j in range(3):
+            if (board.get_square(i, j) == 'N'):
+                board.play_square(i, j, val)
+                if board.full_board() or board.winner() != 'N':
+                    result = utility(board, val)
+                    board.play_square(i, j, 'N')
+                    return result
+                else:
+                    value = max_value(board, 'O', value)
+                    if a != None and value <= a:
+                        board.play_square(i, j, 'N')
+                        return a - 1
+                    if min == None:
+                        min = value
+                    elif min > value:
+                        min = value
+                board.play_square(i, j, 'N')
+
+    return min
+
+def max_value(board, val, b):
+    max = None
+    value = None
+    
+    if board.full_board():
+        return utility(board, val)
+    
+    for i in range(3):
+        for j in range(3):
+            if (board.get_square(i, j) == 'N'):
+                board.play_square(i, j, val)
+                if board.full_board() or board.winner() != 'N':
+                    result = utility(board, val)
+                    board.play_square(i, j, 'N')
+                    return result
+                else:
+                    value = min_value(board, 'X', value)
+                    if b != None and value >= b:
+                        board.play_square(i, j, 'N')
+                        return b + 1
+                    if max == None:
+                        max = value
+                    elif max < value:
+                        max = value
+                board.play_square(i, j, 'N')
+    return max
+
 
 def play():
     Board = TicTacToeBoard()
@@ -61,8 +154,10 @@ def play():
     while( Board.full_board()==False and Board.winner() == 'N'):
         print("your move, pick a row (0-2)")
         row = int(input())
+        # row = 0
         print("your move, pick a col (0-2)")
         col = int(input())
+        # col = 0
 
         if(Board.get_square(col,row)!='N'):
             print("square already taken!")
@@ -74,9 +169,12 @@ def play():
             else:
                 Board.PrintBoard()
                 print("CPU Move")
-                make_simple_cpu_move(Board,cpuval)
+                # make_simple_cpu_move(Board,cpuval)
+                minimax_dicision(Board, cpuval)
                 Board.PrintBoard()
 
+    print '-' * 30
+    print 'total move:' + str(Board.count)
     Board.PrintBoard()
     if(Board.winner()=='N'):
         print("Cat game")
@@ -85,8 +183,9 @@ def play():
     elif(Board.winner()==cpuval):
         print("CPU Wins!")
 
+
 def main():
     play()
 
 main()
-            
+
