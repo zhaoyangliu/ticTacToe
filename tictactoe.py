@@ -6,14 +6,16 @@ class TicTacToeBoard:
     def __init__(self):
         self.board = (['N']*3,['N']*3,['N']*3)
         self.count = 0
-                                      
+        self.val = 'O'
+        self.human_val = 'X'
+
     def PrintBoard(self):
         print(self.board[0][0] + "|" + self.board[1][0] + "|" + self.board[2][0])
-        
+
         print(self.board[0][1] + "|" + self.board[1][1] + "|" + self.board[2][1])
-        
+
         print(self.board[0][2] + "|" + self.board[1][2] + "|" + self.board[2][2])
-        
+
     def play_square(self, col, row, val):
         self.count += 1
         self.board[col][row] = val
@@ -28,7 +30,7 @@ class TicTacToeBoard:
                     return False
 
         return True
-    
+
     #if there is a winner this will return their symbol (either 'X' or 'O'),
     #otherwise it will return 'N'
     def winner(self):
@@ -60,16 +62,18 @@ def make_simple_cpu_move(board, cpuval):
 # Given a non-empty board, it fills one square in the board, according to minimax strategy.
 def minimax_dicision(board, cpuval):
     position = ()
+    board.val = cpuval
+    board.human_val = 'X' if cpuval == 'O' else 'O'
     max = None
     value = None
 
     for i in range(3):
         for j in range(3):
-            if (board.get_square(i, j) == 'N'):
+            if board.get_square(i, j) == 'N':
 
-                board.play_square(i, j, 'X')         # If X is going to win, stop it to win.
-                if board.winner() == 'X':
-                    board.play_square(i, j, 'O')
+                board.play_square(i, j, board.human_val)         # If human is going to win, stop it to win.
+                if board.winner() == board.human_val:
+                    board.play_square(i, j, cpuval)
                     return
 
                 board.play_square(i, j, cpuval)
@@ -77,7 +81,7 @@ def minimax_dicision(board, cpuval):
                     result = utility(board, cpuval)
                     return result
                 else:
-                    value = min_value(board, 'X', value)
+                    value = min_value(board, board.human_val, value)
                     if max == None:
                         max = value
                         position = (i, j)
@@ -89,8 +93,8 @@ def minimax_dicision(board, cpuval):
     board.play_square(position[0], position[1], cpuval)
 
 def utility(board, val):
-    winner = board.winner();
-    return 1 if winner == 'O' else 0 if winner == 'N' else -1
+    winner = board.winner()
+    return 1 if winner == board.val else 0 if winner == 'N' else -1
 
 def min_value(board, val, a):
     min = None
@@ -105,7 +109,7 @@ def min_value(board, val, a):
                     board.play_square(i, j, 'N')
                     return result
                 else:
-                    value = max_value(board, 'O', value)
+                    value = max_value(board, board.val, value)
                     if a != None and value <= a:
                         board.play_square(i, j, 'N')
                         return a - 1
@@ -120,10 +124,10 @@ def min_value(board, val, a):
 def max_value(board, val, b):
     max = None
     value = None
-    
+
     if board.full_board():
         return utility(board, val)
-    
+
     for i in range(3):
         for j in range(3):
             if (board.get_square(i, j) == 'N'):
@@ -133,7 +137,7 @@ def max_value(board, val, b):
                     board.play_square(i, j, 'N')
                     return result
                 else:
-                    value = min_value(board, 'X', value)
+                    value = min_value(board, board.human_val, value)
                     if b != None and value >= b:
                         board.play_square(i, j, 'N')
                         return b + 1
@@ -147,17 +151,30 @@ def max_value(board, val, b):
 
 def play():
     Board = TicTacToeBoard()
-    humanval =  'X'
+    humanval = 'X'
     cpuval = 'O'
     Board.PrintBoard()
-    
+
+    print "Type 1 -> X(first) 2 -> O(second) "
+    choice = input()
+
+    while choice not in [1,2]:
+        print "Invalid input"
+        print "Type 1 -> X(first) 2 -> O(second) "
+        choice = input()
+
+    if choice == 2:
+        humanval = 'O'
+        cpuval = 'X'
+        print("\nCPU Move\n")
+        minimax_dicision(Board, cpuval)
+        Board.PrintBoard()
+
     while( Board.full_board()==False and Board.winner() == 'N'):
         print("your move, pick a row (0-2)")
         row = int(input())
-        # row = 0
         print("your move, pick a col (0-2)")
         col = int(input())
-        # col = 0
 
         if(Board.get_square(col,row)!='N'):
             print("square already taken!")

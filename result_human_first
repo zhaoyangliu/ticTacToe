@@ -1,0 +1,59 @@
+N|N|N
+N|N|N
+N|N|N
+Type 1 -> X(first) 2 -> O(second)
+1
+your move, pick a row (0-2)
+0
+your move, pick a col (0-2)
+0
+X|N|N
+N|N|N
+N|N|N
+CPU Move
+X|N|N
+N|O|N
+N|N|N
+your move, pick a row (0-2)
+0
+your move, pick a col (0-2)
+1
+X|X|N
+N|O|N
+N|N|N
+CPU Move
+X|X|O
+N|O|N
+N|N|N
+your move, pick a row (0-2)
+2
+your move, pick a col (0-2)
+0
+X|X|O
+N|O|N
+X|N|N
+CPU Move
+X|X|O
+O|O|N
+X|N|N
+your move, pick a row (0-2)
+1
+your move, pick a col (0-2)
+2
+X|X|O
+O|O|X
+X|N|N
+CPU Move
+X|X|O
+O|O|X
+X|O|N
+your move, pick a row (0-2)
+2
+your move, pick a col (0-2)
+2
+------------------------------
+total move:13200
+X|X|O
+O|O|X
+X|O|X
+Cat game
