@@ -125,9 +125,6 @@ def max_value(board, val, b):
     max = None
     value = None
 
-    if board.full_board():
-        return utility(board, val)
-
     for i in range(3):
         for j in range(3):
             if (board.get_square(i, j) == 'N'):
