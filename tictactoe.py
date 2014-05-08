@@ -60,7 +60,7 @@ def make_simple_cpu_move(board, cpuval):
 
 
 # Given a non-empty board, it fills one square in the board, according to minimax strategy.
-def minimax_dicision(board, cpuval):
+def minimax_decision(board, cpuval):
     position = ()
     board.val = cpuval
     board.human_val = 'X' if cpuval == 'O' else 'O'
@@ -164,7 +164,7 @@ def play():
         humanval = 'O'
         cpuval = 'X'
         print("\nCPU Move\n")
-        minimax_dicision(Board, cpuval)
+        minimax_decision(Board, cpuval)
         Board.PrintBoard()
 
     while( Board.full_board()==False and Board.winner() == 'N'):
@@ -184,7 +184,7 @@ def play():
                 Board.PrintBoard()
                 print("CPU Move")
                 # make_simple_cpu_move(Board,cpuval)
-                minimax_dicision(Board, cpuval)
+                minimax_decision(Board, cpuval)
                 Board.PrintBoard()
 
     print '-' * 30
