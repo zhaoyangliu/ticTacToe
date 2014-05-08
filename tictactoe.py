@@ -31,6 +31,15 @@ class TicTacToeBoard:
 
         return True
 
+    def left(self):
+        count = 0
+        for i in range(3):
+            for j in range(3):
+                if self.board[i][j] == 'N':
+                    count += 1
+        return count
+
+
     #if there is a winner this will return their symbol (either 'X' or 'O'),
     #otherwise it will return 'N'
     def winner(self):
@@ -94,7 +103,7 @@ def minimax_decision(board, cpuval):
 
 def utility(board, val):
     winner = board.winner()
-    return 1 if winner == board.val else 0 if winner == 'N' else -1
+    return (1 + float(board.left()) / 10) if winner == board.val else 0 if winner == 'N' else (-1 + float(board.left()) / 10)
 
 def min_value(board, val, a):
     min = None
